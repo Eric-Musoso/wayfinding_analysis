@@ -7,11 +7,11 @@ app = Flask(__name__)
 
 # Load all groups into GeoDataFrames (adjust file paths as necessary)
 file_paths = {
-    "group1": r"D:\Munster\ThirdSemester\Thesis\Data\jk\raw_data\raw_data\part2\group1.json",
-    "group2": r"D:\Munster\ThirdSemester\Thesis\Data\jk\raw_data\raw_data\part2\group2.json",
-    "group3": r"D:\Munster\ThirdSemester\Thesis\Data\jk\raw_data\raw_data\part2\group3.json",
-    "group4": r"D:\Munster\ThirdSemester\Thesis\Data\jk\raw_data\raw_data\part2\group4.json",
-    "group5": r"D:\Munster\ThirdSemester\Thesis\Data\jk\raw_data\raw_data\part2\group5.json",
+     "group1": "./input/geojson/group1.json",
+    "group2": "./input/geojson/group2.json",
+    "group3": "./input/geojson/group3.json",
+    "group4": "./input/geojson/group4.json",
+    "group5": "./input/geojson/group5.json",
 }
 
 gdfs = {}
