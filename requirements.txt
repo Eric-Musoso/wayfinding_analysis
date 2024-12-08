@@ -28,16 +28,13 @@ packaging==24.2
 pandas==2.2.3
 pillow==11.0.0
 plotly==5.24.1
-pycosat==0.6.3
 pycparser==2.21
 pyogrio==0.10.0
 pyOpenSSL==23.1.1
 pyparsing==3.2.0
 pyproj==3.6.1
-PySocks==1.7.1
 python-dateutil==2.9.0.post0
 pytz==2024.2
-pywin32==302
 PyYAML==6.0.2
 requests==2.31.0
 seaborn==0.13.2
