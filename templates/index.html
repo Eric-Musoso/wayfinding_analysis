@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./static/lib/css//bootstrap.min.css">
+  <link rel="stylesheet" href="./static/lib/css/keen-dashboards.css">
+  <link rel="stylesheet" href="./static/lib/css/dc.min.css">
+  <link rel="stylesheet" href="./static/lib/css/leaflet.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
+  <!-- Leaflet Marker Cluster CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css"/>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+  
+</head>
+<body class="application">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="./">Wayfinding Performance of GeoGami Data (Location-Based Navigation App)</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+
+    <div class="row">
+
+      <div class="col-sm-6" style="width: 45%;">
+        <div class="row">
+
+          <!-- Time Chart --> 
+          <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title", style="text-align: center;">
+                Speed (m/s) Vs Timestamp
+              </div>
+              <div class="chart-stage">
+                <div id="time-chart"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Time Chart --> 
+
+          <!-- Brand -->
+          <div class="col-sm-6">
+
+            <div class="row">
+            <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Travel Distance(km)
+              </div>
+              <div class="chart-stage">
+                <div id="routelength-row-chart"></div>
+              </div>
+            </div>
+            </div>
+            </div>
+
+
+            <div class="row">
+            <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Number of Stops
+              </div>
+              <div class="chart-stage">
+                <div id="stops-row-chart"></div>
+              </div>
+            </div>
+            </div>
+            </div>
+
+          </div>
+          <!-- Brand -->
+
+
+          <div class="col-sm-6">
+
+            <div class="row">
+            <!-- Gender -->
+            <div class="col-sm-12">
+              <div class="chart-wrapper">
+                <div class="chart-title">
+                  Travel Time(m)
+                </div>
+                <div class="chart-stage">
+                  <div id="duration-row-chart"></div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <!-- Gender -->
+
+            <!-- Age Segment -->
+            <div class="row">
+            <div class="col-sm-12">
+              <div class="chart-wrapper">
+                <div class="chart-title">
+                  Average Speed(km/h)
+                </div>
+                <div class="chart-stage">
+                  <div id="avgSpeed-row-chart"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Age Segment -->
+          </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="col-sm-4" style="width: 55%;">
+        <div class="row">
+          <!-- Map -->  
+          <div class="col-sm-12"> 
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Map
+              </div>
+              <div class="chart-stage">
+                <div id="map" style="width: 800px; height: 472px"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Map -->
+             
+        </div>
+
+        <div class="row">
+          <!-- Number of events -->
+          <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Indicators summary
+              </div>
+              <div class="chart-stage">
+                <!-- Table container -->
+                <table id="data-table" class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Participant</th>
+                      <th>Route Length (km)</th>
+                      <th>Total Duration (min)</th>
+                      <th>Avg Speed (km/h)</th>
+                      <th>Stops</th>
+                      <th>Pan Count</th>
+                      <th>Zoom Count</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Number of events -->
+        </div>
+        
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <hr>
+  <!--p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p-->
+
+  <script src="./static/lib/js/jquery.min.js"></script>
+  <script src="./static/lib/js/bootstrap.min.js"></script>
+  <script src="./static/lib/js/underscore-min.js"></script>
+  <script src="./static/lib/js/crossfilter.js"></script>
+  <script src="./static/lib/js/d3.min.js"></script>
+  <script src="./static/lib/js/dc.min.js"></script>
+  <script src="./static/lib/js/queue.js"></script>
+  <script src="./static/lib/js/leaflet.js"></script>
+  <script src="./static/lib/js/leaflet-heat.js"></script>
+  <script src='./static/js/graphs.js' type='text/javascript'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter2/1.4.7/crossfilter.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/4.0.0/dc.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter2/1.4.7/crossfilter.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dc/4.2.3/dc.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+
+  
+
+
+
+</body>
+</html>

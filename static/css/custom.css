@@ -1,0 +1,43 @@
+#number-records-nd {
+    font-size: 55px;
+}
+
+.dc-chart g.row text {
+    fill: black;
+
+}
+
+#data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  #data-table th,
+  #data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #data-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+
+
+  .leaflet-control-layers {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent for layer control */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.info.legend {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent for legend */
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+
