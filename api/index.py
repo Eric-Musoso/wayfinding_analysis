@@ -1,9 +1,8 @@
-from flask import Flask, render_template, jsonify
+import fiona
 import geopandas as gpd
+from flask import Flask, render_template, jsonify
 import pandas as pd
 import json
-from pyproj import Proj, transform
-import fiona
 
 app = Flask(__name__)
 
@@ -18,13 +17,13 @@ file_paths = {
 
 gdfs = {}
 
-# Function to extract and clean data from JSON
-def load_json_data(file_path):
+# Function to load geospatial data using fiona (instead of pyproj)
+def load_geojson_data(file_path):
     try:
-        with open(file_path, 'r') as file:
-            return json.load(file)
-    except json.JSONDecodeError:
-        print(f"Error reading the JSON file at {file_path}")
+        with fiona.open(file_path, 'r') as src:
+            return [feature for feature in src]
+    except Exception as e:
+        print(f"Error reading the GeoJSON file at {file_path}: {e}")
         return None
 
 # Function to process waypoints into a GeoDataFrame
@@ -65,22 +64,11 @@ def process_waypoints(waypoints, participant_name):
 def create_geodataframe(extracted_data):
     gdf = gpd.GeoDataFrame(
         extracted_data,
-        geometry=[(transform_proj(d['longitude'], d['latitude'])) for d in extracted_data],  # Apply pyproj transformation
+        geometry=[(d['longitude'], d['latitude']) for d in extracted_data],  # Use longitude, latitude directly
         crs="EPSG:4326"  # Set the coordinate reference system (WGS 84)
     )
     gdf['heading_range'] = gdf['heading'].apply(assign_heading_range)
     return gdf
-
-# Function to transform coordinates using pyproj
-def transform_proj(longitude, latitude):
-    # Define the projections
-    proj1 = Proj(init='epsg:4326')  # WGS84
-    proj2 = Proj(init='epsg:3857')  # Web Mercator (for display in a map, for example)
-
-    # Transform longitude, latitude to the new projection
-    x1, y1 = proj1(longitude, latitude)
-    x2, y2 = proj2(x1, y1)
-    return x2, y2  # Return transformed coordinates
 
 # Function to assign heading ranges based on the heading value
 def assign_heading_range(heading):
@@ -97,12 +85,12 @@ def assign_heading_range(heading):
 
 # Main processing function for each group
 def process_group(file_path, participant_name):
-    data = load_json_data(file_path)
+    data = load_geojson_data(file_path)
     if data is None:
         return None
     
-    waypoints = data.get('waypoints', [])
-    extracted_data = process_waypoints(waypoints, participant_name)
+    # Process features and convert to GeoDataFrame
+    extracted_data = process_waypoints(data, participant_name)
     
     if not extracted_data:
         print(f"No valid data for group {participant_name}")
@@ -134,15 +122,10 @@ def index():
 # Route to return all data in GeoDataFrames as JSON
 @app.route("/data")
 def get_data():
-    # Check if gdfs is not empty
     if gdfs:
         # Concatenate all GeoDataFrames into one DataFrame
         data_all = pd.concat(gdfs.values())
-
-        # Data transformation: Convert CRS to Web Mercator (epsg:3857)
-        data_all = data_all.to_crs(epsg=3857)
-
-        # Return the data as JSON (excluding geometry)
+        data_all = data_all.to_crs(epsg=3857)  # Convert CRS to Web Mercator
         return data_all.drop(columns='geometry').to_json(orient='records')
     else:
         return jsonify({"error": "No data available"}), 500
