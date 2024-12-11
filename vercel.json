@@ -1,9 +1,19 @@
-{"version": 2,
-"builds": [
-    {"src": "app.py", "use": "@vercel/python@latest"}
-],
-"routes": [
-    {"src": "/(.*)", "dest": "/app.py"}
-]
-
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
     }
+  ],
+  "routes": [
+    {
+      "src": "/data",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ]
+}
