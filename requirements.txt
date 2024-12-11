@@ -10,6 +10,5 @@ Flask==2.2.0
 geopandas==0.12.0
 pandas==2.2.3
 requests==2.31.0
-pyproj==3.3.0
 fiona==1.8.21
 
