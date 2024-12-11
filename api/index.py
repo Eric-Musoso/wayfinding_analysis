@@ -1,8 +1,9 @@
 from flask import Flask, render_template, jsonify
 import geopandas as gpd
-from shapely.geometry import Point
 import pandas as pd
 import json
+from pyproj import Proj, transform
+import fiona
 
 app = Flask(__name__)
 
@@ -64,11 +65,22 @@ def process_waypoints(waypoints, participant_name):
 def create_geodataframe(extracted_data):
     gdf = gpd.GeoDataFrame(
         extracted_data,
-        geometry=[Point(d['longitude'], d['latitude']) for d in extracted_data],  # Create Points from longitude and latitude
+        geometry=[(transform_proj(d['longitude'], d['latitude'])) for d in extracted_data],  # Apply pyproj transformation
         crs="EPSG:4326"  # Set the coordinate reference system (WGS 84)
     )
     gdf['heading_range'] = gdf['heading'].apply(assign_heading_range)
     return gdf
+
+# Function to transform coordinates using pyproj
+def transform_proj(longitude, latitude):
+    # Define the projections
+    proj1 = Proj(init='epsg:4326')  # WGS84
+    proj2 = Proj(init='epsg:3857')  # Web Mercator (for display in a map, for example)
+
+    # Transform longitude, latitude to the new projection
+    x1, y1 = proj1(longitude, latitude)
+    x2, y2 = proj2(x1, y1)
+    return x2, y2  # Return transformed coordinates
 
 # Function to assign heading ranges based on the heading value
 def assign_heading_range(heading):
