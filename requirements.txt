@@ -6,9 +6,9 @@ cffi==1.15.1
 cryptography>=36.0.0
 click==8.1.7
 colorama==0.4.6
-Flask==2.2.0
-geopandas==0.12.0
+Flask==3.1.0
+geopandas==1.0.1
 pandas==2.2.3
 requests==2.31.0
-shapely==1.8.0
+shapely==2.0.6
 
