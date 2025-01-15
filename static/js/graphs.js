@@ -336,25 +336,28 @@ var overlayMaps = {
 var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
 layerControl.getContainer().style.backgroundColor = "rgba(255, 255, 255, 0.8)"; // Transparent background
 
-// Legend for Point Layer
+// Create the legend for the Point Layer with color and labels
 var legend = L.control({ position: "bottomleft" });
+
 legend.onAdd = function () {
     var div = L.DomUtil.create("div", "info legend");
     div.innerHTML += "<h4>Direction Heading</h4>";
 
-    // Create a gradient for the continuous color scale
-    var gradient = "<div style='background: linear-gradient(to right, " +
-        d3.interpolateTurbo(0) + // Start of the color scale
-        ", " +
-        d3.interpolateTurbo(1) + // End of the color scale
-        "); width: 100%; height: 15px;'></div>";
-    div.innerHTML += gradient;
+    // Define the color range for each heading group
+    var colorRange = [
+        { label: '0-90 North-East', color: '#DAF7A6' },  // Light Green
+        { label: '91-180 North-West', color: '#FFC300' }, // Yellow
+        { label: '181-270 South-West', color: '#FF5733' }, // Red
+        { label: '271-360 South-East', color: '#C70039' }  // Dark Red
+    ];
 
-    // Labels for the gradient
-    div.innerHTML += "<div style='display: flex; justify-content: space-between;'>";
-    div.innerHTML += "<span>0 - </span>"; // Start value
-    div.innerHTML += "<span>360 Degree</span>"; // End value
-    div.innerHTML += "</div>";
+    // Add colored boxes with labels
+    colorRange.forEach(function (item) {
+        div.innerHTML += "<div style='display: flex; align-items: center;'>" +
+                            "<div style='background-color: " + item.color + "; width: 20px; height: 20px; margin-right: 10px;'></div>" +
+                            "<span>" + item.label + "</span>" +
+                          "</div>";
+    });
 
     return div;
 };
@@ -367,34 +370,50 @@ function updateHeatLayer(filteredData) {
     heatLayer.addLayer(newHeatLayer); // Add new heatLayer to the group
 }
 
+// Define the getColor function to map values to colors
+function getColor(heading) {
+    return heading <= 90     ? '#DAF7A6' :
+           heading <= 180    ? '#FFC300' : 
+           heading <= 270    ? '#FF5733' :  
+           heading <= 360    ? '#C70039' :  
+                               '#ffffb2';   // Default color 
+}
+
 // Function to update Point Layer dynamically
 function updatePointLayer(filteredData) {
     pointLayer.clearLayers(); // Clear existing points
 
-    // Continuous color scale for 0-360 range
-    var colorScale = d3.scaleSequential(d3.interpolateTurbo).domain([0, 360]);
+    // First, filter the data into separate heading ranges
+    var heading0to90 = filteredData.filter((d) => d.heading <= 90);
+    var heading91to180 = filteredData.filter((d) => d.heading > 90 && d.heading <= 180);
+    var heading181to270 = filteredData.filter((d) => d.heading > 180 && d.heading <= 270);
+    var heading271to360 = filteredData.filter((d) => d.heading > 270 && d.heading <= 360);
 
-    filteredData.forEach((d) => {
+    // Combine the filtered data (this may not be necessary if you're processing them separately)
+    var filteredHeading = [
+        ...heading0to90,
+        ...heading91to180,
+        ...heading181to270,
+        ...heading271to360
+    ];
+
+    // For each filtered data, assign a color and create a marker
+    filteredHeading.forEach((d) => {
         var heading = parseFloat(d.heading) || 0; // Use heading field directly
-        var color = colorScale(heading); // Map heading to color
+
+        // Use getColor to get the color based on heading value
+        var color = getColor(heading);
+
+        // Create a marker with the assigned color
         var marker = L.circleMarker([d.latitude, d.longitude], {
-            color: color, // Apply the color from the scale
+            color: color, // Apply the custom color based on heading
             radius: 5,
             fillOpacity: 0.8,
         });
-        pointLayer.addLayer(marker);
+
+        pointLayer.addLayer(marker); // Add the marker to the point layer
     });
 }
-
-// Function to update HeatLayer dynamically
-function updateHeatLayer(filteredData) {
-    heatLayer.clearLayers(); // Clear any existing heatmap data
-    var heatData = filteredData.map((d) => [d.latitude, d.longitude, 1]);
-    var newHeatLayer = L.heatLayer(heatData, { radius: 10, blur: 20, maxZoom: 2 });
-    heatLayer.addLayer(newHeatLayer); // Add new heatLayer to the group
-}
-
-
 // Function to update Cluster Layer dynamically
 function updateClusterLayer(filteredData) {
     clusterLayer.clearLayers(); // Clear existing clusters
