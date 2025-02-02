@@ -35,21 +35,25 @@ The Wayfinding Performance Dashboard is a Flask-based web application that lever
 
 1. Clone the repository:
 - bash
+  
 git clone https://github.com/yourusername/Thesis-project.git
   
 cd Thesis-project
 
 2. Install Python dependencies:
 - bash
+  
 pip install -r requirements.txt
   
 3. Install JavaScript libraries: Navigate to the static directory and install dependencies:
-- bash 
+- bash
+  
 npm install
 
 ### Running the Application
 1. Start the Flask server:
 - bash
+  
 python api/index.py
   
 This will run the server on localhost:5000.
