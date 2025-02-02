@@ -38,7 +38,7 @@ The Wayfinding Performance Dashboard is a Flask-based web application that lever
 1. Clone the repository:
 - bash
   
-git clone https://github.com/yourusername/Thesis-project.git
+git clone https://github.com/yourusername/wayfinding_analysis.git
   
 cd Thesis-project
 
