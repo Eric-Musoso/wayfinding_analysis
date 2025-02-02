@@ -4,18 +4,20 @@
 
 The Wayfinding Performance Dashboard is a Flask-based web application that combines advanced geospatial data processing with interactive visualizations. This dashboard utilizes D3.js, DC.js, and Leaflet to offer real-time insights into navigation efficiency through various metrics such as speed, route length, and number of stops.
 
-## Features
+### Features
 Dynamic Data Visualization: Leverages D3.js and DC.js for data-driven graphs and charts, providing insights into travel time, speed, and other relevant metrics.
 Interactive Mapping: Incorporates Leaflet for spatial data representation, including heatmaps and marker clusters to depict areas of interest or concern.
 Real-time Data Processing: Processes geospatial data using Flask and displays it interactively, allowing users to filter and analyze data across different dimensions.
 
-##Technologies Used
-Frontend: HTML5, CSS3, JavaScript
-Libraries: Bootstrap, D3.js, DC.js, Leaflet, Crossfilter
-Backend: Flask
-Data Handling: GeoPandas, Pandas, Shapely
-Installation
-Prerequisites
+### Technologies Used
+
+-Frontend: HTML5, CSS3, JavaScript
+-Libraries: Bootstrap, D3.js, DC.js, Leaflet, Crossfilter
+-Backend: Flask
+-Data Handling: GeoPandas, Pandas, Shapely
+
+### Installation
+#### Prerequisites
 Python 3.8 or newer
 Node.js and npm (for managing frontend libraries)
 Setting Up the Environment
