@@ -2,63 +2,74 @@
 
 ## Overview
 
-The Wayfinding Performance Dashboard is a Flask-based web application that combines advanced geospatial data processing with interactive visualizations. This dashboard utilizes D3.js, DC.js, and Leaflet to offer real-time insights into navigation efficiency through various metrics such as speed, route length, and number of stops.
+The Wayfinding Performance Dashboard is a Flask-based web application that leverages geospatial data to provide insights into navigation efficiency. It uses D3.js, DC.js, and Leaflet for interactive data visualization and is structured to facilitate easy deployment and maintenance.
+
+### Repository Structure
+- /api: Contains the Flask application files including index.py for the API endpoints.
+  
+- /input/geojson: Stores the GeoJSON files used for mapping and data processing.
+  
+- /static: Holds static files like CSS, JavaScript, and library dependencies.
+  
+- /templates: Contains HTML files for the application's frontend.
+  
+- README.md: Provides project information and setup instructions.
+  
+- requirements.txt: Lists all Python dependencies for the project.
+  
+- vercel.json: Configuration file for deploying the project using Vercel.
 
 ### Features
-- Dynamic Data Visualization: Leverages D3.js and DC.js for data-driven graphs and charts, providing insights into travel time, speed, and other relevant metrics.
-
-- Interactive Mapping: Incorporates Leaflet for spatial data representation, including heatmaps and marker clusters to depict areas of interest or concern.
-
-- Real-time Data Processing: Processes geospatial data using Flask and displays it interactively, allowing users to filter and analyze data across different dimensions.
+- Dynamic Data Visualization: Uses D3.js and DC.js to create interactive charts and graphs.
+  
+- Geospatial Mapping: Integrates Leaflet for advanced mapping capabilities.
+  
+- Data Processing: Flask backend processes GeoJSON data for use in the application.
 
 ### Technologies Used
-
-- Frontend: HTML5, CSS3, JavaScript
-
-- Libraries: Bootstrap, D3.js, DC.js, Leaflet, Crossfilter
-
-- Backend: Flask
-
-- Data Handling: GeoPandas, Pandas, Shapely
+- Flask: Serves the backend and API functionality.
+  
+- D3.js, DC.js: Provide dynamic visualizations.
+  
+- Leaflet: Handles interactive maps.
+  
+- Bootstrap: Ensures responsive design.
 
 ### Installation
-#### Prerequisites
-- Python 3.8 or newer
 
-- Node.js and npm (for managing frontend libraries)
+- Prerequisites
+  
+- Python 3.8 or higher
+  
+- Node.js and npm
 
-- Setting Up the Environment
+### Setting Up the Environment
 
-Clone the repository:
+1. Clone the repository:
+
+bash
+
+ Copy
+ 
+- git clone https://github.com/yourusername/Thesis-project.git
+- cd Thesis-project
+
+2. Install Python dependencies:
 
 bash
 Copy
-git clone https://github.com/yourusername/wayfinding-dashboard.git
-cd wayfinding-dashboard
-Install the required Python packages:
+pip install -r requirements.txt
+Install JavaScript libraries: Navigate to the static directory and install dependencies:
 
 bash
 Copy
-pip install flask geopandas pandas shapely
-Install JavaScript libraries: Navigate to the static folder and run:
-
-bash
-Copy
-npm install d3 dc leaflet crossfilter queue
+npm install
 Running the Application
-Launch the Flask server:
+Start the Flask server:
 
 bash
 Copy
-python app.py
-This starts the server on localhost with default port 5000.
+python api/index.py
+This will run the server on localhost:5000.
 
-Access the application: Open a web browser and navigate to http://localhost:5000 to view the dashboard.
-
-### Usage
-This application processes JSON data from multiple groups into GeoDataFrames, applies filters, and visualizes data through various interactive charts and a map. Users can interact with the visualizations to drill down into specific metrics or view data across different times and conditions.
-
-### Interactive Features
-- Charts: Utilize DC.js to render time series, row charts, and other visualizations that respond to user interactions.
-- Map: Use Leaflet to display geospatial data with options to toggle between heatmaps, marker clusters, and directional indicators.
-- Data Filtering: Crossfilter supports fast multidimensional filtering for analytics deep dives.
+Access the dashboard: Open your browser and go to http://localhost:5000 to view the dashboard.
