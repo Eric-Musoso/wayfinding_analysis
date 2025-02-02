@@ -28,16 +28,13 @@ The Wayfinding Performance Dashboard is a Flask-based web application that lever
 
 ### Technologies Used
 - Flask: Serves the backend and API functionality.
-  
-- D3.js, DC.js: Provide dynamic visualizations.
-  
-- Leaflet: Handles interactive maps.
-  
+- D3.js, DC.js: Provide dynamic visualizations. 
+- Leaflet: Handles interactive maps. 
 - Bootstrap: Ensures responsive design.
 
 ### Installation
 
-- Prerequisites
+#### Prerequisites
   
 - Python 3.8 or higher
   
@@ -47,29 +44,26 @@ The Wayfinding Performance Dashboard is a Flask-based web application that lever
 
 1. Clone the repository:
 
-bash
-
- Copy
+#### bash(Copy)
  
 - git clone https://github.com/yourusername/Thesis-project.git
 - cd Thesis-project
 
 2. Install Python dependencies:
-
-bash
-Copy
-pip install -r requirements.txt
-Install JavaScript libraries: Navigate to the static directory and install dependencies:
-
-bash
-Copy
+#### bash
+- pip install -r requirements.txt
+  
+3. Install JavaScript libraries: Navigate to the static directory and install dependencies:
+#### bash 
 npm install
-Running the Application
-Start the Flask server:
 
+### Running the Application
+1. Start the Flask server:
 bash
-Copy
-python api/index.py
+- python api/index.py
 This will run the server on localhost:5000.
 
-Access the dashboard: Open your browser and go to http://localhost:5000 to view the dashboard.
+2. Access the dashboard: Open your browser and go to http://localhost:5000 to view the dashboard.
+
+### Usage
+Navigate through the web interface to interact with the data visualizations. Use the filters to segment the data based on different parameters and explore various geospatial analytics functionalities.
