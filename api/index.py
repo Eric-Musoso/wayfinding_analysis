@@ -8,11 +8,9 @@ app = Flask(__name__)
 
 # File paths for each group
 file_paths = {
-    "group1": "./input/geojson/group1.json",
-    "group2": "./input/geojson/group2.json",
-    "group3": "./input/geojson/group3.json",
-    "group4": "./input/geojson/group4.json",
-    "group5": "./input/geojson/group5.json",
+    "group1": "./input/geojson/v1.json",
+    "group2": "./input/geojson/v2.json",
+    "group3": "./input/geojson/v3.json",
 }
 
 gdfs = {}
@@ -69,7 +67,7 @@ def process_group(file_path, participant_name):
     geometry=[Point(d['longitude'], d['latitude']) for d in extracted_data],  # Create Points from longitude and latitude
     crs="EPSG:4326"  # Set the coordinate reference system (WGS 84)
     )
-    gdf = gdf.loc[(gdf['taskCategory'] == "nav") & (gdf['taskNo'] >= 6) & (gdf['taskNo'] <= 10)].copy()
+    #gdf = gdf.loc[(gdf['taskCategory'] == "nav") & (gdf['taskNo'] >= 6) & (gdf['taskNo'] <= 10)].copy()
     print((gdf['speed'] <=0).count())
 
     # Add the heading_range column based on the heading values
@@ -94,8 +92,6 @@ participants = {
     "group1": "Group-1",
     "group2": "Group-2",
     "group3": "Group-3",
-    "group4": "Group-4",
-    "group5": "Group-5",
 }
 
 for group, file_path in file_paths.items():
