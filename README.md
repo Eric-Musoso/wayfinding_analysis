@@ -2,6 +2,8 @@
 
 ## Overview
 
+![Image](https://github.com/user-attachments/assets/199eb313-0ccc-4ba5-b8a7-6d7ff848a948)
+
 The Wayfinding Performance Dashboard is a Flask-based web application that leverages geospatial data to provide insights into navigation efficiency. It uses D3.js, DC.js, and Leaflet for interactive data visualization and is structured to facilitate easy deployment and maintenance.
 
 ### Repository Structure
