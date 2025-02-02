@@ -1,5 +1,7 @@
-Wayfinding Performance Dashboard
-Overview
+# Wayfinding Performance Dashboard
+
+## Overview
+
 The Wayfinding Performance Dashboard is a Flask-based web application that combines advanced geospatial data processing with interactive visualizations. This dashboard utilizes D3.js, DC.js, and Leaflet to offer real-time insights into navigation efficiency through various metrics such as speed, route length, and number of stops.
 
 Features
