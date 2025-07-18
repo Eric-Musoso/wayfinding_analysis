@@ -8,9 +8,9 @@ app = Flask(__name__)
 
 # File paths for each group
 file_paths = {
-    #"group1": "./input/geojson/v1.json",
-    #"group2": "./input/geojson/v2.json",
-    #"group3": "./input/geojson/v3.json",
+    "group1": "./input/geojson/v1.json",
+    "group2": "./input/geojson/v2.json",
+    "group3": "./input/geojson/v3.json",
 }
 
 gdfs = {}
