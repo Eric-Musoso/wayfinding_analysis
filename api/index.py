@@ -1,4 +1,4 @@
-import fiona
+from shapely.geometry import Point
 import geopandas as gpd
 from flask import Flask, render_template, jsonify
 import pandas as pd
@@ -122,4 +122,4 @@ def get_data():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    return app(req, res)
+    
